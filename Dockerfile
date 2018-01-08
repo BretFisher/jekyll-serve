@@ -8,7 +8,7 @@ EXPOSE 4000
 
 WORKDIR /site
 
-# crate new site by setting -e JEKYLL_NEW=true
+# create new site by setting -e JEKYLL_NEW=true
 ENV JEKYLL_NEW false
 
 COPY docker-entrypoint.sh /usr/local/bin/
