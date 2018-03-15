@@ -1,6 +1,6 @@
 FROM ruby:2.4-alpine
 
-RUN apk add --no-cache build-base gcc bash
+RUN apk add --no-cache build-base gcc bash cmake
 
 RUN gem install jekyll
 
