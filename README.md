@@ -15,7 +15,7 @@ Assuming Docker and Docker Compose are installed:
 
 ```shell
 cd dir/of/your/jekyll/site
-docker run -p 80:4000 -v $(pwd):/site bretfisher/jekyll-serve
+docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve
 ```
 
 That's it! 
@@ -36,7 +36,7 @@ docker-compose up
 just add a environment variable to the `run` command to tell the container to make one:
 
 ```shell
-docker run -p 80:4000 -v $(pwd):/site -e JEKYLL_NEW=true bretfisher/jekyll-serve
+docker run -p 8080:4000 -v $(pwd):/site -e JEKYLL_NEW=true bretfisher/jekyll-serve
 ```
 
 **Q. What if I want to run other jekyll commands?**
