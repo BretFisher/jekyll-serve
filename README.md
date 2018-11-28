@@ -1,16 +1,16 @@
 # Jekyll in a Docker Container
 
-> But this has been done. Why not `docker pull jekyll/jekyll`?
+> But this has been done. Why not `docker run jekyll/jekyll`?
 
 - I wanted two images, one for easy CLI (`bretfisher/jekyll`) and one for 
-easy local server for dev with sane defaults (`bretfisher/jekyll:serve`), which I use 90% of time
+easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which I use 90% of time
+- So you can start any Jekyll server with `docker-compose up`
 - I wanted to dev on a local jekyll site w/o having jekyll installed on my host OS
 - I wanted it to be as easy as possible to start
 - I wanted current alpine, ruby, and jekyll
 
 > So, this does that.
 
-NOTE: images `bretfisher/jekyll:serve` and `bretfisher/jekyll-serve` are the same.
 
 ## Getting Started
 
@@ -25,18 +25,29 @@ Start a local server with sane defaults listening on port 8080:
 
 ```shell
 cd dir/of/your/jekyll/site
-docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll:serve
+docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve
 ```
 
 That's it! 
 
-Details: it will mount your current path into the containers `/site`, `bundle install` before running `jekyll serve` to , serve it at `http://localhost`.
+Details: it will mount your current path into the containers `/site`, `bundle install` before running `jekyll serve` to , serve it at `http://<docker-host>:8080`.
 
 To make this even easier, copy `docker-compose.yml` [from this repo](https://github.com/BretFisher/jekyll-serve/blob/master/docker-compose.yml) to your jekyll site root. Then you'll only need to:
 
 ```shell
 cd dir/of/your/jekyll/site
 docker-compose up
+```
+
+## BONUS: Run even easier with [Docker App](https://github.com/docker/app)
+
+First, install [docker-app manually](https://github.com/docker/app/releases) (for now)
+
+Now you don't even need a docker-compose.yml in the site, you're pulling my compose file and running it in one command
+
+```shell
+cd dir/of/your/jekyll/site
+docker-app render | docker-compose -f - up
 ```
 
 ## Q&A

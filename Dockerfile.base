@@ -12,6 +12,6 @@ EXPOSE 4000
 
 WORKDIR /site
 
-ENTRYPOINT [ "bundle", "exec", "jekyll" ]
+ENTRYPOINT [ "jekyll" ]
 
 CMD [ "--help" ]
