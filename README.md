@@ -2,20 +2,30 @@
 
 > But this has been done. Why not `docker pull jekyll/jekyll`?
 
-- I wanted defaults to be `jekyll serve` when container is run, which I use 90% of time
+- I wanted two images, one for easy CLI (`bretfisher/jekyll`) and one for 
+easy local server for dev with sane defaults (`bretfisher/jekyll:serve`), which I use 90% of time
 - I wanted to dev on a local jekyll site w/o having jekyll installed on my host OS
 - I wanted it to be as easy as possible to start
 - I wanted current alpine, ruby, and jekyll
 
 > So, this does that.
 
+NOTE: images `bretfisher/jekyll:serve` and `bretfisher/jekyll-serve` are the same.
+
 ## Getting Started
 
-Assuming Docker and Docker Compose are installed:
+Creating a site:
+
+```shell
+cd to empty directory
+docker run -v $(pwd):/site bretfisher/jekyll new .
+```
+
+Start a local server with sane defaults listening on port 8080:
 
 ```shell
 cd dir/of/your/jekyll/site
-docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve
+docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll:serve
 ```
 
 That's it! 
@@ -31,27 +41,19 @@ docker-compose up
 
 ## Q&A
 
-**Q. What if I need to create a site first?**
-
-just add a environment variable to the `run` command to tell the container to make one:
-
-```shell
-docker run -p 8080:4000 -v $(pwd):/site -e JEKYLL_NEW=true bretfisher/jekyll-serve
-```
-
 **Q. What if I want to run other jekyll commands?**
 
-just add the command to the end (with your -v included) to override the `jekyll serve`:
+just add the jekyll options to the end of the `bretfisher/jekyll`:
 
 ```shell
-docker run -v $(pwd):/site bretfisher/jekyll-serve jekyll doctor
+docker run -v $(pwd):/site bretfisher/jekyll doctor
 ```
 
 ## License
 
 MIT License
 
-Copyright (c) [2017] [Bret Fisher bret@bretfisher.com]
+Copyright (c) [Bret Fisher bret@bretfisher.com]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

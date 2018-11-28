@@ -14,5 +14,4 @@ WORKDIR /site
 
 ENTRYPOINT [ "bundle", "exec", "jekyll" ]
 
-CMD [ "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]
-
+CMD [ "--help" ]
