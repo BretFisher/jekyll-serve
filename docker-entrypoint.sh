@@ -14,7 +14,6 @@ if [ ! -f Gemfile ]; then
   exit 1
 fi
 
-# I don't think we need to bundle install here because CMD runs bundle exec for us
-# bundle install
+bundle install
 
 exec "$@"
