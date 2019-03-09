@@ -11,6 +11,8 @@ easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which 
 
 > So, this does that.
 
+Note [I have courses on Docker (including a Lecture on Jekyll in Docker), Swarm, and upcoming Docker for Node.js here](https://www.bretfisher.com/docker).
+
 ## Docker Images
 
 | Image | Purpose | Example |
