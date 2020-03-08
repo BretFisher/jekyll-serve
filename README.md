@@ -17,8 +17,8 @@ Note [I have courses on Docker (including a Lecture on Jekyll in Docker), Swarm,
 
 | Image | Purpose | Example |
 | ----- | ------- | ------- |
-| [bretfisher/jekyll](https://hub.docker.com/r/bretfisher/jekyll/) | Runs Jekll by default with no options, good for general CLI commands | `docker run -v $(pwd):/site bretfisher/jekyll new .` |
-| [bretfisher/jekyll-serve](https://hub.docker.com/r/bretfisher/jekyll-serve/) | Runs Jekll serve with sane defaults, good for local Jekll site dev | `docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve` |
+| [bretfisher/jekyll](https://hub.docker.com/r/bretfisher/jekyll/) | Runs Jekyll by default with no options, good for general CLI commands | `docker run -v $(pwd):/site bretfisher/jekyll new .` |
+| [bretfisher/jekyll-serve](https://hub.docker.com/r/bretfisher/jekyll-serve/) | Runs Jekyll serve with sane defaults, good for local Jekyll site dev | `docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve` |
 
 ## Getting Started
 
