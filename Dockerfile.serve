@@ -3,12 +3,9 @@
 # but it lets us host two images, mostly the same, on Hub
 FROM bretfisher/jekyll:latest
 
-# create new site by setting -e JEKYLL_NEW=true
-ENV JEKYLL_NEW false
-
 COPY docker-entrypoint.sh /usr/local/bin/
 
-# on every container start, check if Gemfile exists and create a new site if it's missing
+# on every container start, check if Gemfile exists and warn if it's missing
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 CMD [ "bundle", "exec", "jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]

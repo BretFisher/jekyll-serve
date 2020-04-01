@@ -11,7 +11,7 @@ easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which 
 
 > So, this does that.
 
-Note [I have courses on Docker (including a Lecture on Jekyll in Docker), Swarm, and upcoming Docker for Node.js here](https://www.bretfisher.com/docker).
+Note [I have courses on Docker (including a Lecture on Jekyll in Docker)](https://www.bretfisher.com/courses).
 
 ## Docker Images
 
@@ -45,17 +45,6 @@ To make this even easier, copy `docker-compose.yml` [from this repo](https://git
 ```shell
 cd dir/of/your/jekyll/site
 docker-compose up
-```
-
-## BONUS: Run even easier with [Docker App](https://github.com/docker/app)
-
-First, install [docker-app manually](https://github.com/docker/app/releases) (for now)
-
-Now you don't even need a docker-compose.yml in the site, you're pulling my compose file and running it in one command
-
-```shell
-cd dir/of/your/jekyll/site
-docker-app render | docker-compose -f - up
 ```
 
 ## Q&A

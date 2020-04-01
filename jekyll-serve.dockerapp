@@ -14,7 +14,7 @@ maintainers:
 
 ---
 # This section contains the Compose file that describes your application services.
-version: '3.2'
+version: '2.4'
 
 services:
   jekyll:
