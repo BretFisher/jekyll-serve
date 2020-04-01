@@ -21,9 +21,13 @@ FROM jekyll-base
 # create new site by setting -e JEKYLL_NEW=true
 ENV JEKYLL_NEW false
 
+# prevent unnecessary warnings or deprecation notices
+ENV RUBYOPT "-W:no-deprecated -W:no-experimental"
+
 COPY docker-entrypoint.sh /usr/local/bin/
 
-# on every container start we'l'
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+# on every container start, check if Gemfile exists and create a new site if it's missing
+ENTRYPOINT docker-entrypoint.sh
 
-CMD [ "bundle", "exec", "jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]
+# moved to shell form so we can capture env vars
+CMD bundle exec jekyll serve --force_polling -H 0.0.0.0 -P 4000
