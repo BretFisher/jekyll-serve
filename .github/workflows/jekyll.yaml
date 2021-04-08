@@ -1,0 +1,98 @@
+name: httping
+
+on:
+  push:
+    branches:
+      - 'main'
+    # only build when important files change
+    paths:
+      - 'Dockerfile'
+      - 'docker-entrypoint.sh'
+      - '.github/workflows/jekyll.yml'
+  # we want pull requests so we can build(test) but not push to image registry
+  pull_request:
+    branches:
+      - 'main'
+    paths:
+      - 'Dockerfile'
+      - 'docker-entrypoint.sh'
+      - '.github/workflows/jekyll.yml'
+  schedule:
+    # re-run montly to keep image fesh with upstream base images
+    - cron: '0 12 15 * *'
+ 
+
+jobs:
+  dockerize:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            bretfisher/jekyll
+            ghcr.io/bretfisher/jekyll
+          tag-custom: latest
+          tag-custom-only: true
+      -
+        # we need qemu and buildx so we can build multiple platforms later
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        # this will build the images, once per platform, then push to both hub and ghcr
+        name: Build and push jekyll
+        uses: docker/build-push-action@v2
+        with:
+          target: jekyll
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          # don't push during a pull_request, only build
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+      -
+# steps for 2nd image jekyll-serve, based on above jekyll image layers
+        name: Docker meta jekyll-serve
+        id: docker_meta_jekyll_serve
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            bretfisher/jekyll-serve 
+            ghcr.io/bretfisher/jekyll-serve
+          tag-custom: latest
+          tag-custom-only: true
+      -
+        # this will build the images, once per platform, then push to both hub and ghcr
+        name: Build and push jekyll-serve
+        uses: docker/build-push-action@v2
+        with:
+          target: jekyll-serve
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          # don't push during a pull_request, only build
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta_jekyll_serve.outputs.tags }}
+          labels: ${{ steps.docker_metajekyll_serve.outputs.labels }} 

@@ -1,8 +1,4 @@
-# this file exists because Docker Hub can't make images out of build stages
-# so this is a bit redundant with Dockerfile in this repo
-# but it lets us host two images, mostly the same, on Hub
-
-FROM ruby:2.7-alpine
+FROM ruby:2.7-alpine as jekyll
 
 RUN apk add --no-cache build-base gcc bash cmake git
 
@@ -16,3 +12,13 @@ WORKDIR /site
 ENTRYPOINT [ "jekyll" ]
 
 CMD [ "--help" ]
+
+
+FROM jekyll as jekyll-serve
+
+COPY docker-entrypoint.sh /usr/local/bin/
+
+# on every container start, check if Gemfile exists and warn if it's missing
+ENTRYPOINT [ "docker-entrypoint.sh" ]
+
+CMD [ "bundle", "exec", "jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]
