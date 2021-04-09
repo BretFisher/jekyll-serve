@@ -1,4 +1,4 @@
-FROM ruby:2.7-alpine as jekyll
+FROM ruby:alpine as jekyll
 
 RUN apk add --no-cache build-base gcc bash cmake git
 
