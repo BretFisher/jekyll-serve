@@ -47,6 +47,13 @@ cd dir/of/your/jekyll/site
 docker-compose up
 ```
 
+## Known issues
+
+1. `webrick` errors during startup.
+
+  * As of April 2021, this image uses Ruby 3.0, and Jekyll sites need to add `webrick` to their Gemfile. Ruby 3.0 removed this bundled gems so you'll need to add them manuall if you use them: `sdbm`, `webrick`, `net-telnet`, `xmlrpc`.
+
+
 ## Q&A
 
 **Q. What if I want to run other jekyll commands?**
