@@ -2,7 +2,7 @@
 
 > But this has been done. Why not `docker run jekyll/jekyll`?
 
-- I wanted two images, one for easy CLI (`bretfisher/jekyll`) and one for 
+- I wanted two images, one for easy CLI (`bretfisher/jekyll`) and one for
 easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which I use 90% of time
 - So you can start any Jekyll server with `docker-compose up`
 - I wanted to dev on a local jekyll site w/o having jekyll installed on my host OS
@@ -36,7 +36,7 @@ cd dir/of/your/jekyll/site
 docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve
 ```
 
-That's it! 
+That's it!
 
 Details: it will mount your current path into the containers `/site`, `bundle install` before running `jekyll serve` to , serve it at `http://<docker-host>:8080`.
 
@@ -51,8 +51,7 @@ docker-compose up
 
 1. `webrick` errors during startup.
 
-    * As of April 2021, this image uses Ruby 3.0, and Jekyll is still on 4.2 (released 12/2020). Jekyll 4.2 doesn't have `webrick` listed as a dependency, so we'll have to manually add it to Gemfile for now. Ruby 3.0 removed this bundled gems so you'll need to add them manually if you use them: `sdbm`, `webrick`, `net-telnet`, `xmlrpc`. Hopefully Jekyll 4.3 will have `webrick` listed as a Jekyll dependency (it is fixed in Jekyll master branch) so manually updating Gemfiles won't be needed.
-
+    - As of April 2021, this image uses Ruby 3.0, and Jekyll is still on 4.2 (released 12/2020). Jekyll 4.2 doesn't have `webrick` listed as a dependency, so we'll have to manually add it to Gemfile for now. Ruby 3.0 removed this bundled gems so you'll need to add them manually if you use them: `sdbm`, `webrick`, `net-telnet`, `xmlrpc`. Hopefully Jekyll 4.3 will have `webrick` listed as a Jekyll dependency (it is fixed in Jekyll master branch) so manually updating Gemfiles won't be needed.
 
 ## Q&A
 
