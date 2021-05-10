@@ -1,4 +1,6 @@
-FROM ruby:alpine as jekyll
+ARG RUBY_VERSION=3.0
+
+FROM ruby:${RUBY_VERSION}-alpine as jekyll
 
 RUN apk add --no-cache build-base gcc bash cmake git
 
