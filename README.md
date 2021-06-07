@@ -67,7 +67,7 @@ docker-compose up
 
     - As of April 2021, Ruby 3.0 is out, and Jekyll is still on 4.2 (released 12/2020).
     Jekyll 4.2 doesn't have `webrick` listed as a dependency, so we'll have to manually add it to
-    Gemfile for now if you want to use Ruby 3.0. 
+    Gemfile for now if you want to use Ruby 3.0.
     Ruby 3.0 removed this bundled gems so you'll need to add them manually if you
     use them: `sdbm`, `webrick`, `net-telnet`, `xmlrpc`. Hopefully Jekyll 4.3 will have `webrick`
     listed as a Jekyll dependency (it is fixed in Jekyll master branch) so manually updating Gemfiles
