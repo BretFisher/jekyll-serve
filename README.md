@@ -10,13 +10,15 @@ easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which 
 - So you can start any Jekyll server with `docker-compose up`
 - I wanted to dev on a local jekyll site w/o having jekyll installed on my host OS
 - I wanted it to be as easy as possible to start
-- I wanted current alpine, ruby, and jekyll
+- I wanted current alpine, ruby, and jekyll (these images update monthly to latest versions)
 
 > So, this does that.
 
 Note [I have courses on Docker (including a Lecture on Jekyll in Docker)](https://www.bretfisher.com/courses).
 
-WARNING: This isn't meant to be a production image that you run a web server with. I don't do that with the Jekyll
+:bangbang: :bangbang: :bangbang:
+
+:warning: WARNING: :warning: This isn't meant to be a production image that you run a web server with. I don't do that with the Jekyll
 CLI that comes with this image. Jekyll CLI generates
 a static site that you can run with GitHub Pages, Netlify, or your own NGINX setup.  Furthermore, I don't version
 anything so these images will not run guaranteed versions of Ruby, Jekyll, etc. (which, if you're running a server,
