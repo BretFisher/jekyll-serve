@@ -41,19 +41,6 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       -
-        name: Docker meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v3.3.0
-        with:
-          # list of Docker images to use as base name for tags
-          images: |
-            bretfisher/jekyll
-            ghcr.io/bretfisher/jekyll
-          flavor: |
-            latest=false
-          tags: |
-            type=raw,value=latest
-      -
         # we need qemu and buildx so we can build multiple platforms later
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1.2.0
@@ -85,6 +72,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       -
+        name: Docker meta
+        id: docker_meta
+        uses: docker/metadata-action@v3.3.0
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            bretfisher/jekyll
+            ghcr.io/bretfisher/jekyll
+          flavor: |
+            latest=false
+          tags: |
+            type=raw,value=latest
+      -
         # this will build the images, once per platform, 
         # then push to both Docker Hub and GHCR
         name: Build and push
@@ -107,7 +107,7 @@ jobs:
 # steps for 2nd image jekyll-serve, based on above jekyll image layers
         name: Docker meta jekyll-serve
         id: docker_meta_jekyll_serve
-        uses: crazy-max/ghaction-docker-meta@v3.3.0
+        uses: docker/metadata-action@v3.3.0
         with:
           # list of Docker images to use as base name for tags
           images: |
