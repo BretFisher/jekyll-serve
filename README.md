@@ -1,5 +1,6 @@
 # Jekyll in a Docker Container
 
+[![GitHub Super-Linter](https://github.com/bretfisher/jekyll-serve/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 ![Build and Push Image](https://github.com/bretfisher/jekyll-serve/actions/workflows/docker-build-and-push.yml/badge.svg?branch=main)
 
 > But this has been done. Why not `docker run jekyll/jekyll`?
