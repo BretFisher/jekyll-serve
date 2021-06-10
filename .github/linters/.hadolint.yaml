@@ -1,3 +1,5 @@
 ignored:
+  - DL3006 #image pin versions
+  - DL3008 #apt pin versions
   - DL3018 #apk add pin versions
   - DL3028 #gem install pin versions
