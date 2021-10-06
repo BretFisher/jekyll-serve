@@ -29,7 +29,7 @@ should pin all versions usually.)
 | Image | Purpose | Example |
 | ----- | ------- | ------- |
 | [bretfisher/jekyll](https://hub.docker.com/r/bretfisher/jekyll/) | Runs Jekyll by default with no options, good for general CLI commands | `docker run -v $(pwd):/site bretfisher/jekyll new .` |
-| [bretfisher/jekyll-serve](https://hub.docker.com/r/bretfisher/jekyll-serve/) | Runs Jekyll serve with sane defaults, good for local Jekyll site dev | `docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve` |
+| [bretfisher/jekyll-serve](https://hub.docker.com/r/bretfisher/jekyll-serve/) | Runs Jekyll serve with sane defaults, good for local Jekyll site dev | `docker run -p 4000:4000 -v $(pwd):/site bretfisher/jekyll-serve` |
 
 ## Getting Started
 
@@ -40,17 +40,17 @@ cd to empty directory
 docker run -v $(pwd):/site bretfisher/jekyll new .
 ```
 
-Start a local server with sane defaults listening on port 8080:
+Start a local server with sane defaults listening on port 4000:
 
 ```shell
 cd dir/of/your/jekyll/site
-docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve
+docker run -p 4000:4000 -v $(pwd):/site bretfisher/jekyll-serve
 ```
 
 That's it!
 
 Details: it will mount your current path into the containers `/site`, `bundle install` before running
-`jekyll serve` to , serve it at `http://<docker-host>:8080`.
+`jekyll serve` to , serve it at `http://<docker-host>:4000`.
 
 To make this even easier, copy `docker-compose.yml`
 [from this repo](https://github.com/BretFisher/jekyll-serve/blob/master/docker-compose.yml)
