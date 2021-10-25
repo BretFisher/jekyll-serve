@@ -66,7 +66,7 @@ jobs:
       -
         name: Docker meta
         id: docker_meta
-        uses: docker/metadata-action@v3.4.1
+        uses: docker/metadata-action@v3.6.0
         with:
           # list of Docker images to use as base name for tags
           images: |
@@ -99,7 +99,7 @@ jobs:
 # steps for 2nd image jekyll-serve, based on above jekyll image layers
         name: Docker meta jekyll-serve
         id: docker_meta_jekyll_serve
-        uses: docker/metadata-action@v3.4.1
+        uses: docker/metadata-action@v3.6.0
         with:
           # list of Docker images to use as base name for tags
           images: |
