@@ -1,6 +1,6 @@
 FROM ruby:2-alpine as jekyll
 
-RUN apk add --no-cache build-base gcc bash cmake git
+RUN apk add --no-cache build-base gcc bash cmake git gcompat
 
 # install both bundler 1.x and 2.x incase you're running
 # old gem files
