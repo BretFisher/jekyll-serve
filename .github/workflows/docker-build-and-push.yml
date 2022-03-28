@@ -34,7 +34,6 @@ jobs:
       image-names: |
           bretfisher/jekyll
           ghcr.io/bretfisher/jekyll
-      target: jekyll
     secrets:
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -42,10 +41,10 @@ jobs:
     # use Reusable Workflows
     # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
     uses: bretfisher/github-actions-templates/.github/workflows/docker-build-and-push.yaml@main
+    needs: build-jekyll-image
     with:
       image-names: |
           bretfisher/jekyll-serve 
           ghcr.io/bretfisher/jekyll-serve
-      target: jekyll-serve
     secrets:
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}

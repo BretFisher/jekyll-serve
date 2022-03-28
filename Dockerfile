@@ -1,6 +1,9 @@
-FROM ruby:2-alpine as jekyll
+FROM ruby:2-alpine
 
 RUN apk add --no-cache build-base gcc bash cmake git gcompat
+
+# used in the jekyll-server image, which is FROM this image
+COPY docker-entrypoint.sh /usr/local/bin/
 
 # install both bundler 1.x and 2.x incase you're running
 # old gem files
@@ -14,13 +17,3 @@ WORKDIR /site
 ENTRYPOINT [ "jekyll" ]
 
 CMD [ "--help" ]
-
-
-FROM jekyll as jekyll-serve
-
-COPY docker-entrypoint.sh /usr/local/bin/
-
-# on every container start, check if Gemfile exists and warn if it's missing
-ENTRYPOINT [ "docker-entrypoint.sh" ]
-
-CMD [ "bundle", "exec", "jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]
