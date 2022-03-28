@@ -20,7 +20,7 @@ on:
       - '.github/workflows/docker-build-and-push.yml'
       - 'docker-entrypoint.sh'
   schedule:
-    # re-run montly to keep image fesh with upstream base images
+    # re-run montly to keep image fresh with upstream base images
     - cron: '0 12 15 * *'
   workflow_dispatch:
     # run whenever we want!
@@ -34,6 +34,7 @@ jobs:
       image-names: |
           bretfisher/jekyll
           ghcr.io/bretfisher/jekyll
+      platforms: linux/amd64,linux/arm64,linux/arm/v7
     secrets:
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -46,5 +47,7 @@ jobs:
       image-names: |
           bretfisher/jekyll-serve 
           ghcr.io/bretfisher/jekyll-serve
+      platforms: linux/amd64,linux/arm64,linux/arm/v7
+      file: Dockerfile.serve
     secrets:
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
