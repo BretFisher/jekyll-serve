@@ -25,10 +25,12 @@ on:
 
 
 jobs:
+
   build-jekyll-image:
+
     # use Reusable Workflows
     # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
-     name: Call Docker Build Jekyll
+    name: Call Docker Build Jekyll
 
     uses: bretfisher/docker-build-workflow/.github/workflows/reusable-docker-build.yaml@main
 
@@ -55,6 +57,7 @@ jobs:
       platforms: linux/amd64,linux/arm64,linux/arm/v7
 
   build-jekyll-serve-image:
+
     # use Reusable Workflows
     # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
     name: Call Docker Build Jekyll-Serve
