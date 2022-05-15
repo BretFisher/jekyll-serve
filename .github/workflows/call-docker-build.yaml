@@ -76,5 +76,5 @@ jobs:
         bretfisher/jekyll-serve 
         ghcr.io/bretfisher/jekyll-serve
       platforms: linux/amd64,linux/arm64,linux/arm/v7
-      target: jekyll.serve
+      target: jekyll-serve
 
