@@ -1,4 +1,4 @@
-FROM ruby:2-alpine
+FROM ruby:2-alpine as jekyll
 
 RUN apk add --no-cache build-base gcc bash cmake git gcompat
 
@@ -17,3 +17,11 @@ WORKDIR /site
 ENTRYPOINT [ "jekyll" ]
 
 CMD [ "--help" ]
+
+# build from the image we just built with different metadata
+FROM ghcr.io/bretfisher/jekyll:latest as jekyll-serve
+
+# on every container start, check if Gemfile exists and warn if it's missing
+ENTRYPOINT [ "docker-entrypoint.sh" ]
+
+CMD [ "bundle", "exec", "jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]

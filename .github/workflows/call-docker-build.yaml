@@ -1,5 +1,5 @@
 ---
-name: Build and Push Images
+name: Docker Build
 
 on:
   # we want pull requests so we can build(test) but not push to image registry
@@ -9,6 +9,7 @@ on:
     # only build when important files change
     paths:
       - 'Dockerfile'
+      - 'Dockerfile.serve'
       - '.github/workflows/call-docker-build.yaml'
       - 'docker-entrypoint.sh'
   push:
@@ -17,6 +18,7 @@ on:
     # only build when important files change
     paths:
       - 'Dockerfile'
+      - 'Dockerfile.serve'
       - '.github/workflows/call-docker-build.yaml'
       - 'docker-entrypoint.sh'
   schedule:
@@ -41,11 +43,7 @@ jobs:
     
     secrets:
 
-      # Only needed if with:dockerhub-enable is true below
       dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-
-      # Only needed if with:dockerhub-enable is true below
-      # https://hub.docker.com/settings/security
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
     with:
@@ -55,6 +53,7 @@ jobs:
         bretfisher/jekyll
         ghcr.io/bretfisher/jekyll
       platforms: linux/amd64,linux/arm64,linux/arm/v7
+      target: jekyll
 
   build-jekyll-serve-image:
 
@@ -73,11 +72,7 @@ jobs:
     
     secrets:
 
-      # Only needed if with:dockerhub-enable is true below
       dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-
-      # Only needed if with:dockerhub-enable is true below
-      # https://hub.docker.com/settings/security
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
     with:
@@ -87,5 +82,5 @@ jobs:
         bretfisher/jekyll-serve 
         ghcr.io/bretfisher/jekyll-serve
       platforms: linux/amd64,linux/arm64,linux/arm/v7
-      file: Dockerfile.serve
+      target: jekyll.serve
 
