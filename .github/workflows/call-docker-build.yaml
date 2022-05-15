@@ -2,25 +2,20 @@
 name: Docker Build
 
 on:
-  # we want pull requests so we can build(test) but not push to image registry
-  pull_request:
-    branches:
-      - 'main'
-    # only build when important files change
-    paths:
-      - 'Dockerfile'
-      - 'Dockerfile.serve'
-      - '.github/workflows/call-docker-build.yaml'
-      - 'docker-entrypoint.sh'
   push:
     branches:
       - 'main'
     # only build when important files change
     paths:
       - 'Dockerfile'
-      - 'Dockerfile.serve'
       - '.github/workflows/call-docker-build.yaml'
       - 'docker-entrypoint.sh'
+  pull_request:
+    paths:
+      - 'Dockerfile'
+      - '.github/workflows/call-docker-build.yaml'
+      - 'docker-entrypoint.sh'
+
   schedule:
     # re-run montly to keep image fresh with upstream base images
     - cron: '0 12 15 * *'

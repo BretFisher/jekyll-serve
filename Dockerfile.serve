@@ -1,9 +1,0 @@
-# Ideally this is just a stage in the main dockerfile, but since this builds two images
-# that need to be pushed, it's more efficient (esp with slowness of QEMU) to
-# build from the image we just built with the gems
-FROM ghcr.io/bretfisher/jekyll:latest
-
-# on every container start, check if Gemfile exists and warn if it's missing
-ENTRYPOINT [ "docker-entrypoint.sh" ]
-
-CMD [ "bundle", "exec", "jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]
