@@ -1,4 +1,4 @@
-version: '2.4'
+# no version needed since 2020
 
 services:
   jekyll:

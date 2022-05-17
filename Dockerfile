@@ -2,6 +2,9 @@ FROM ruby:2-alpine as jekyll
 
 RUN apk add --no-cache build-base gcc bash cmake git gcompat
 
+# used in the jekyll-server image, which is FROM this image
+COPY docker-entrypoint.sh /usr/local/bin/
+
 # install both bundler 1.x and 2.x incase you're running
 # old gem files
 # https://bundler.io/guides/bundler_2_upgrade.html#faq
@@ -15,10 +18,8 @@ ENTRYPOINT [ "jekyll" ]
 
 CMD [ "--help" ]
 
-
-FROM jekyll as jekyll-serve
-
-COPY docker-entrypoint.sh /usr/local/bin/
+# build from the image we just built with different metadata
+FROM ghcr.io/bretfisher/jekyll:latest as jekyll-serve
 
 # on every container start, check if Gemfile exists and warn if it's missing
 ENTRYPOINT [ "docker-entrypoint.sh" ]
