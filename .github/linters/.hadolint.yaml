@@ -9,6 +9,7 @@
 ignored:
   - DL3003 #ignore that we use cd sometimes
   - DL3006 #image pin versions
+  - DL3007 #latest is fine in this case
   - DL3008 #apt pin versions
   - DL3018 #apk add pin versions
   - DL3022 #bad rule for COPY --from

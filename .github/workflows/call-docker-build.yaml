@@ -19,7 +19,6 @@ on:
     # re-run montly to keep image fresh with upstream base images
     - cron: '0 12 15 * *'
 
-
 jobs:
 
   build-jekyll-image:
@@ -59,6 +58,8 @@ jobs:
 
     needs: build-jekyll-image
 
+    if: github.event == 'push'
+
     permissions:
       contents: read
       packages: write # needed to push docker image to ghcr.io
@@ -77,4 +78,3 @@ jobs:
         ghcr.io/bretfisher/jekyll-serve
       platforms: linux/amd64,linux/arm64,linux/arm/v7
       target: jekyll-serve
-
