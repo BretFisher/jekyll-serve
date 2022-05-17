@@ -58,7 +58,7 @@ jobs:
 
     needs: build-jekyll-image
 
-    if: github.event == 'push'
+    if: github.event_name == 'push'
 
     permissions:
       contents: read
