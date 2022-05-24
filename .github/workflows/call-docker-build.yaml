@@ -101,6 +101,7 @@ jobs:
       dockerhub-enable: true
       ghcr-enable: true
       file: alpine.Dockerfile
+      comment-enable: false
       image-names: |
         bretfisher/jekyll
         ghcr.io/bretfisher/jekyll
@@ -108,7 +109,6 @@ jobs:
         type=raw,value=alpine,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
         type=raw,value=alpine-stable-{{date 'YYYYMMDDHHmmss'}},enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
         type=ref,event=pr,prefix=alpine-pr
-        type=ref,event=branch,prefix=alpine-
         type=raw,value=alpine-gha-${{ github.run_id }}
       platforms: linux/amd64,linux/arm64,linux/arm/v7
       target: jekyll
@@ -139,6 +139,7 @@ jobs:
       dockerhub-enable: true
       ghcr-enable: true
       file: alpine.Dockerfile
+      comment-enable: false
       image-names: |
         bretfisher/jekyll-serve 
         ghcr.io/bretfisher/jekyll-serve
@@ -146,7 +147,6 @@ jobs:
         type=raw,value=alpine,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
         type=raw,value=alpine-stable-{{date 'YYYYMMDDHHmmss'}},enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
         type=ref,event=pr,prefix=alpine-pr
-        type=ref,event=branch,prefix=alpine-
         type=raw,value=alpine-gha-${{ github.run_id }}
       platforms: linux/amd64,linux/arm64,linux/arm/v7
       target: jekyll-serve
