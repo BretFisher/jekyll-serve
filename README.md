@@ -10,7 +10,7 @@ easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which 
 - So you can start any Jekyll server with `docker-compose up`
 - I wanted to dev on a local jekyll site w/o having jekyll installed on my host OS
 - I wanted it to be as easy as possible to start
-- I wanted current alpine, ruby, and jekyll (these images update monthly to latest versions)
+- I wanted current debian/alpine, ruby, and jekyll (these images update monthly to latest versions)
 
 > So, this does that.
 
@@ -30,6 +30,7 @@ should pin all versions usually.)
 | ----- | ------- | ------- |
 | [bretfisher/jekyll](https://hub.docker.com/r/bretfisher/jekyll/) | Runs Jekyll by default with no options, good for general CLI commands | `docker run -v $(pwd):/site bretfisher/jekyll new .` |
 | [bretfisher/jekyll-serve](https://hub.docker.com/r/bretfisher/jekyll-serve/) | Runs Jekyll serve with sane defaults, good for local Jekyll site dev | `docker run -p 4000:4000 -v $(pwd):/site bretfisher/jekyll-serve` |
+| `:alpine` tag | Runs an Alpine variant of the above images | |
 
 ## Getting Started
 
