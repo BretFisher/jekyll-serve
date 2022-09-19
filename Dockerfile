@@ -27,4 +27,4 @@ FROM ghcr.io/bretfisher/jekyll:latest as jekyll-serve
 # on every container start, check if Gemfile exists and warn if it's missing
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
-CMD [ "bundle", "exec", "jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]
+CMD [ "bundle", "exec", "jekyll", "serve", "--trace", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]
