@@ -6,11 +6,11 @@
 > But this has been done. Why not `docker run jekyll/jekyll`?
 
 - I wanted two images, one for easy CLI (`bretfisher/jekyll`) and one for
-easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which I use 90% of time
+easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which I use 90% of the time
 - So you can start any Jekyll server with `docker-compose up`
-- I wanted to dev on a local jekyll site w/o having jekyll installed on my host OS
+- I wanted to dev on a local Jekyll site without having Jekyll installed on my host OS
 - I wanted it to be as easy as possible to start
-- I wanted current debian/alpine, ruby, and jekyll (these images update monthly to latest versions)
+- I wanted current `amd64` and `arm64` images using official Ruby and Jekyll latest
 
 > So, this does that.
 
@@ -30,7 +30,6 @@ should pin all versions usually.)
 | ----- | ------- | ------- |
 | [bretfisher/jekyll](https://hub.docker.com/r/bretfisher/jekyll/) | Runs Jekyll by default with no options, good for general CLI commands | `docker run -v $(pwd):/site bretfisher/jekyll new .` |
 | [bretfisher/jekyll-serve](https://hub.docker.com/r/bretfisher/jekyll-serve/) | Runs Jekyll serve with sane defaults, good for local Jekyll site dev | `docker run -p 4000:4000 -v $(pwd):/site bretfisher/jekyll-serve` |
-| `:alpine` tag | Runs an Alpine variant of the above images | |
 
 ## Getting Started
 
@@ -61,6 +60,17 @@ to your jekyll site root. Then you'll only need to:
 cd dir/of/your/jekyll/site
 docker-compose up
 ```
+
+## Known issues
+
+1. `arm/v7` version (aka `armhf`) doesn't exist in this repository.
+    - Yes, `arm/v7` has become too difficult to support.
+2. `alpine` version doesn't exist in this repository.
+    - Yes, not all Jekyll dependencies are built with `musl` support, so `glibc`-based images are now the only option (Debian).
+3. RESOLVED as of Jekyll 4.3
+    ~~`webrick` errors during startup.~~
+    - ~~As of April 2021, Ruby 3.0 is out, and Jekyll is still on 4.2 (released 12/2020). Jekyll 4.2 doesn't have `webrick` listed as a dependency, so we'll have to manually add it to Gemfile for now if you want to use Ruby 3.0.~~
+    ~~Ruby 3.0 removed this bundled gems so you'll need to add them manually if you use them: `sdbm`, `webrick`, `net-telnet`, `xmlrpc`. Hopefully Jekyll 4.3 will have `webrick` listed as a Jekyll dependency (it is fixed in Jekyll master branch) so manually updating Gemfiles won't be needed.~~
 
 ## Q&A
 
