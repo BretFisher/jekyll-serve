@@ -62,19 +62,6 @@ cd dir/of/your/jekyll/site
 docker-compose up
 ```
 
-## Known issues
-
-1. `webrick` errors during startup.
-
-    - As of April 2021, Ruby 3.0 is out, and Jekyll is still on 4.2 (released 12/2020).
-    Jekyll 4.2 doesn't have `webrick` listed as a dependency, so we'll have to manually add it to
-    Gemfile for now if you want to use Ruby 3.0.
-    Ruby 3.0 removed this bundled gems so you'll need to add them manually if you
-    use them: `sdbm`, `webrick`, `net-telnet`, `xmlrpc`. Hopefully Jekyll 4.3 will have `webrick`
-    listed as a Jekyll dependency (it is fixed in Jekyll master branch) so manually updating Gemfiles
-    won't be needed.
-    - Note this image was reverted back to Ruby 2.x in June 2021 to prevent the issues found in 3.0
-
 ## Q&A
 
 **Q. What if I want to run other jekyll commands?**
