@@ -1,4 +1,4 @@
-FROM ruby:2-slim-bullseye as jekyll
+FROM ruby:3-slim-bullseye as jekyll
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -8,10 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # used in the jekyll-server image, which is FROM this image
 COPY docker-entrypoint.sh /usr/local/bin/
 
-# install both bundler 1.x and 2.x incase you're running
-# old gem files
-# https://bundler.io/guides/bundler_2_upgrade.html#faq
-RUN gem install bundler -v "~>1.0" && gem install bundler jekyll
+RUN gem install bundler jekyll
 
 EXPOSE 4000
 
