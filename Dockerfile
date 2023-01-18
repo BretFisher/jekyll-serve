@@ -1,4 +1,4 @@
-FROM ruby:3-slim-bullseye as jekyll
+FROM ruby:2-slim-bullseye as jekyll
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
