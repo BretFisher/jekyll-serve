@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # used in the jekyll-server image, which is FROM this image
 COPY docker-entrypoint.sh /usr/local/bin/
 
-RUN gem update --system && gem install jekyll && gem cleanup
+RUN gem update --system && gem install jekyll -v 4.2.2 && gem cleanup
 
 EXPOSE 4000
 
