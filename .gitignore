@@ -1,2 +1,3 @@
 .jekyll-cache
+# this repo only builds a docker image for jekyll, and doesn't store a jekyll site.
 _site
