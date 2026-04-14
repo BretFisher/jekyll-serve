@@ -15,9 +15,14 @@ on:
       - '.github/workflows/call-docker-build.yaml'
       - 'docker-entrypoint.sh'
 
-  schedule:
-    # re-run montly to keep image fresh with upstream base images
-    - cron: '0 12 15 * *'
+# cancel any previously-started, yet still active runs of this workflow on the same branch
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+# reset permissions to none at the workflow level
+# we'll set them at the job level below
+permissions: {}
 
 jobs:
 
@@ -29,6 +34,10 @@ jobs:
 
     uses: bretfisher/docker-build-workflow/.github/workflows/reusable-docker-build.yaml@main
 
+    # set permissions here to be equal or greater than what's required in the Reusable Workflow
+    # Permissions set here for the GITHUB_TOKEN are then passed to the Reusable Workflow
+    # Calling permissions must be equal to or greater than these reusable permissions for it to work
+    # https://docs.github.com/en/actions/using-workflows/reusing-workflows#supported-keywords-for-jobs-that-call-a-reusable-workflow
     permissions:
       contents: read
       packages: write # needed to push docker image to ghcr.io
@@ -45,7 +54,7 @@ jobs:
       image-names: |
         bretfisher/jekyll
         ghcr.io/bretfisher/jekyll
-      platforms: linux/amd64,linux/arm64,linux/arm/v7
+      platforms: linux/amd64,linux/arm64
       target: jekyll
 
   build-jekyll-serve-image:
@@ -76,5 +85,5 @@ jobs:
       image-names: |
         bretfisher/jekyll-serve 
         ghcr.io/bretfisher/jekyll-serve
-      platforms: linux/amd64,linux/arm64,linux/arm/v7
+      platforms: linux/amd64,linux/arm64
       target: jekyll-serve
