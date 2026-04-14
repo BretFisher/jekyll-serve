@@ -100,4 +100,3 @@ bundle exec jekyll build
 Then your bind-mounted `_site` will be there on your host, built by Jekyll using your Gemfile Jekyll dependencies that were installed in that container.
 
 If this is something you do often, you'll want to build your _own_ image that already has your Ruby dependencies installed. Then when you run the `jekyll build` command, it'll have all the Gemfile dependencies it needs.
-
