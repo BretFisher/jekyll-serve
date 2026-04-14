@@ -4,16 +4,16 @@ name: Docker Build
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'Dockerfile'
-      - '.github/workflows/call-docker-build.yaml'
-      - 'docker-entrypoint.sh'
+      - "Dockerfile"
+      - ".github/workflows/call-docker-build.yaml"
+      - "docker-entrypoint.sh"
   pull_request:
     paths:
-      - 'Dockerfile'
-      - '.github/workflows/call-docker-build.yaml'
-      - 'docker-entrypoint.sh'
+      - "Dockerfile"
+      - ".github/workflows/call-docker-build.yaml"
+      - "docker-entrypoint.sh"
 
 # cancel any previously-started, yet still active runs of this workflow on the same branch
 concurrency:
@@ -25,14 +25,13 @@ concurrency:
 permissions: {}
 
 jobs:
-
   build-jekyll-image:
-
     # use Reusable Workflows
     # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
     name: Call Docker Build Jekyll
 
-    uses: bretfisher/docker-build-workflow/.github/workflows/reusable-docker-build.yaml@main
+    # NOTE: zizmor scanner rule ignore added because we control sha pins via reusable workflow, not calling workflow
+    uses: bretfisher/docker-build-workflow/.github/workflows/reusable-docker-build.yaml@main # zizmor: ignore[unpinned-uses]
 
     # set permissions here to be equal or greater than what's required in the Reusable Workflow
     # Permissions set here for the GITHUB_TOKEN are then passed to the Reusable Workflow
@@ -42,9 +41,8 @@ jobs:
       contents: read
       packages: write # needed to push docker image to ghcr.io
       pull-requests: write # needed to create and update comments in PRs
-    
-    secrets:
 
+    secrets:
       dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -58,12 +56,12 @@ jobs:
       target: jekyll
 
   build-jekyll-serve-image:
-
     # use Reusable Workflows
     # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
     name: Call Docker Build Jekyll-Serve
 
-    uses: bretfisher/docker-build-workflow/.github/workflows/reusable-docker-build.yaml@main
+    # NOTE: zizmor scanner rule ignore added because we control sha pins via reusable workflow, not calling workflow
+    uses: bretfisher/docker-build-workflow/.github/workflows/reusable-docker-build.yaml@main # zizmor: ignore[unpinned-uses]
 
     needs: build-jekyll-image
 
@@ -73,9 +71,8 @@ jobs:
       contents: read
       packages: write # needed to push docker image to ghcr.io
       pull-requests: write # needed to create and update comments in PRs
-    
-    secrets:
 
+    secrets:
       dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 

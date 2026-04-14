@@ -6,7 +6,7 @@
 > But this has been done. Why not `docker run jekyll/jekyll`?
 
 - I wanted two images, one for easy CLI (`bretfisher/jekyll`) and one for
-easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which I use 90% of the time
+  easy local server for dev with sane defaults (`bretfisher/jekyll-serve`), which I use 90% of the time
 - So you can start any Jekyll server with `docker-compose up`
 - I wanted to dev on a local Jekyll site without having Jekyll installed on my host OS
 - I wanted it to be as easy as possible to start
@@ -20,16 +20,16 @@ Note [I have courses on Docker (including a Lecture on Jekyll in Docker)](https:
 
 :warning: WARNING: :warning: This isn't meant to be a production image that you run a web server with. I don't do that with the Jekyll
 CLI that comes with this image. Jekyll CLI generates
-a static site that you can run with GitHub Pages, Netlify, or your own NGINX setup.  Furthermore, I don't version
+a static site that you can run with GitHub Pages, Netlify, or your own NGINX setup. Furthermore, I don't version
 anything so these images will not run guaranteed versions of Ruby, Jekyll, etc. (which, if you're running a server,
 should pin all versions usually.)
 
 ## Docker Images
 
-| Image | Purpose | Example |
-| ----- | ------- | ------- |
-| [bretfisher/jekyll](https://hub.docker.com/r/bretfisher/jekyll/) | Runs Jekyll by default with no options, good for general CLI commands | `docker run -v $(pwd):/site bretfisher/jekyll new .` |
-| [bretfisher/jekyll-serve](https://hub.docker.com/r/bretfisher/jekyll-serve/) | Runs Jekyll serve with sane defaults, good for local Jekyll site dev | `docker run -p 4000:4000 -v $(pwd):/site bretfisher/jekyll-serve` |
+| Image                                                                        | Purpose                                                               | Example                                                           |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| [bretfisher/jekyll](https://hub.docker.com/r/bretfisher/jekyll/)             | Runs Jekyll by default with no options, good for general CLI commands | `docker run -v $(pwd):/site bretfisher/jekyll new .`              |
+| [bretfisher/jekyll-serve](https://hub.docker.com/r/bretfisher/jekyll-serve/) | Runs Jekyll serve with sane defaults, good for local Jekyll site dev  | `docker run -p 4000:4000 -v $(pwd):/site bretfisher/jekyll-serve` |
 
 ## Getting Started
 
@@ -64,13 +64,13 @@ docker-compose up
 ## Known issues
 
 1. `arm/v7` version (aka `armhf`) doesn't exist in this repository.
-    - Yes, `arm/v7` has become too difficult to support.
+   - Yes, `arm/v7` has become too difficult to support.
 2. `alpine` version doesn't exist in this repository.
-    - Yes, not all Jekyll dependencies are built with `musl` support, so `glibc`-based images are now the only option (Debian, Ubuntu, etc).
+   - Yes, not all Jekyll dependencies are built with `musl` support, so `glibc`-based images are now the only option (Debian, Ubuntu, etc).
 3. RESOLVED as of Jekyll 4.3
-    ~~`webrick` errors during startup.~~
-    - ~~As of April 2021, Ruby 3.0 is out, and Jekyll is still on 4.2 (released 12/2020). Jekyll 4.2 doesn't have `webrick` listed as a dependency, so we'll have to manually add it to Gemfile for now if you want to use Ruby 3.0.~~
-    ~~Ruby 3.0 removed this bundled gems so you'll need to add them manually if you use them: `sdbm`, `webrick`, `net-telnet`, `xmlrpc`. Hopefully Jekyll 4.3 will have `webrick` listed as a Jekyll dependency (it is fixed in Jekyll master branch) so manually updating Gemfiles won't be needed.~~
+   ~~`webrick` errors during startup.~~
+   - ~~As of April 2021, Ruby 3.0 is out, and Jekyll is still on 4.2 (released 12/2020). Jekyll 4.2 doesn't have `webrick` listed as a dependency, so we'll have to manually add it to Gemfile for now if you want to use Ruby 3.0.~~
+     ~~Ruby 3.0 removed this bundled gems so you'll need to add them manually if you use them: `sdbm`, `webrick`, `net-telnet`, `xmlrpc`. Hopefully Jekyll 4.3 will have `webrick` listed as a Jekyll dependency (it is fixed in Jekyll master branch) so manually updating Gemfiles won't be needed.~~
 
 ## Q&A
 
@@ -99,28 +99,5 @@ bundle exec jekyll build
 
 Then your bind-mounted `_site` will be there on your host, built by Jekyll using your Gemfile Jekyll dependencies that were installed in that container.
 
-If this is something you do often, you'll want to build your *own* image that already has your Ruby dependencies installed. Then when you run the `jekyll build` command, it'll have all the Gemfile dependencies it needs.
+If this is something you do often, you'll want to build your _own_ image that already has your Ruby dependencies installed. Then when you run the `jekyll build` command, it'll have all the Gemfile dependencies it needs.
 
-## License
-
-MIT License
-
-Copyright (c) [Bret Fisher bret@bretfisher.com]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
